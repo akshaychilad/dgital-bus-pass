@@ -1,0 +1,41 @@
+<?php session_start(); ?>
+<?php
+include("dbconnection.php");
+
+$uid=$_SESSION['ApplicaationID'];
+$query="SELECT * FROM pass where ApplicaationID='".$ApplicaationID."'";
+$result = mysql_query($query);
+if($row = mysql_fetch_array($result))
+  {  
+  	$query1="delete from pass where ApplicaationID=".$_REQUEST['ApplicaationID'];
+	$result1 = mysql_query($query1);  
+		if($result1)
+		{
+?>
+<script>
+alert("pass is Deleted");
+location.href="./home.php";
+</script>
+<?php		
+		}
+		else
+		{
+?>
+<script>
+alert("Failure / Try once again");
+history.back();
+</script>
+<?php
+		} 
+  }
+else 
+ {
+?>
+<script>
+alert("session expired");
+location.href="../index.html";
+</script>
+<?php  
+  }
+mysql_close($con);
+?>
